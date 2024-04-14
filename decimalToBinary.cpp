@@ -4,14 +4,24 @@
 using namespace std;
 
 int main(){
-	int n,bin=0,i=0;
+	int n,i=0;
+	long double bin=0;
 	cin >> n;
-	while(n!=0){
-		if(n&1){
-			bin+=pow(10,i);
+	if(n>=0){
+		while(n!=0){
+			bin+=(n&1)*pow(10,i);
+			n = n >> 1;
+			i++;
 		}
-		n = n >> 1;
-		i++;
+	}
+	else {
+		n=(-n);
+		unsigned int ni = ~n;
+		while(ni!=0){
+			bin+=(ni&1)*pow(10,i);
+			ni = ni >> 1;
+			i++;
+		}
 	}
 	cout << bin << endl;
 	return 0;
