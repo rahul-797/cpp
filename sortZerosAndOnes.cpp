@@ -12,7 +12,7 @@ void arrange(int arr[], int len) {
         if (arr[length] == 0) {
           swap(arr[i], arr[length]);
         }
-        length--;
+        --length;
       }
     }
     i++;
