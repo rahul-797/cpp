@@ -29,6 +29,34 @@ int firstOccurance(int arr[], int len, int n) {
   return index;
 }
 
+int lastOccurance(int arr[], int len, int n) {
+  int index = -1;
+  int start = 0;
+  int end = len - 1;
+  int mid = start + (end - start) / 2;
+  while (start <= end) {
+    if (arr[mid] > n) {
+      end = mid;
+      if ((start + (end - start) / 2) == mid) {
+        end--;
+        mid--;
+      } else {
+        mid = start + (end - start) / 2;
+      }
+    } else {
+      if (arr[mid] == n) index = mid;
+      start = mid;
+      if ((start + (end - start) / 2) == mid) {
+        start++;
+        mid++;
+      } else {
+        mid = start + (end - start) / 2;
+      }
+    }
+  }
+  return index;
+}
+
 int main() {
   int arr[21] = {1, 2, 2, 3, 3, 3, 4, 5, 5,  5, 5,
                  6, 7, 7, 8, 9, 9, 9, 9, 10, 11};
@@ -44,5 +72,7 @@ int main() {
 
   int first = firstOccurance(arr, len, n);
   cout << "First occurance of " << n << " is at index: " << first << endl;
+  int last = lastOccurance(arr, len, n);
+  cout << "last occurance of " << n << " is at index: " << last << endl;
   return 0;
 }
