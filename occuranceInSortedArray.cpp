@@ -7,24 +7,15 @@ int firstOccurance(int arr[], int len, int n) {
   int end = len - 1;
   int mid = start + (end - start) / 2;
   while (start <= end) {
-    if (arr[mid] < n) {
-      start = mid;
-      if ((start + (end - start) / 2) == mid) {
-        start++;
-        mid++;
-      } else {
-        mid = start + (end - start) / 2;
-      }
+    if (arr[mid] == n) {
+      index = mid;
+      end = mid - 1;
+    } else if (arr[mid] < n) {
+      start = mid + 1;
     } else {
-      if (arr[mid] == n) index = mid;
-      end = mid;
-      if ((start + (end - start) / 2) == mid) {
-        end--;
-        mid--;
-      } else {
-        mid = start + (end - start) / 2;
-      }
+      end = mid - 1;
     }
+    mid = start + (end - start) / 2;
   }
   return index;
 }
@@ -35,31 +26,21 @@ int lastOccurance(int arr[], int len, int n) {
   int end = len - 1;
   int mid = start + (end - start) / 2;
   while (start <= end) {
-    if (arr[mid] > n) {
-      end = mid;
-      if ((start + (end - start) / 2) == mid) {
-        end--;
-        mid--;
-      } else {
-        mid = start + (end - start) / 2;
-      }
+    if (arr[mid] == n) {
+      index = mid;
+      start = mid + 1;
+    } else if (arr[mid] > n) {
+      end = mid - 1;
     } else {
-      if (arr[mid] == n) index = mid;
-      start = mid;
-      if ((start + (end - start) / 2) == mid) {
-        start++;
-        mid++;
-      } else {
-        mid = start + (end - start) / 2;
-      }
+      start = mid + 1;
     }
+    mid = start + (end - start) / 2;
   }
   return index;
 }
 
 int main() {
-  int arr[21] = {1, 2, 2, 3, 3, 3, 4, 5, 5,  5, 5,
-                 6, 7, 7, 8, 9, 9, 9, 9, 10, 11};
+  int arr[20] = {1, 2, 2, 3, 3, 3, 4, 5, 5, 5, 5, 6, 7, 7, 8, 9, 9, 9, 9, 10};
   int len = sizeof(arr) / sizeof(arr[0]);
   int n;
   cin >> n;
