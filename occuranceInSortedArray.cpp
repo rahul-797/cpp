@@ -55,5 +55,6 @@ int main() {
   cout << "First occurance of " << n << " is at index: " << first << endl;
   int last = lastOccurance(arr, len, n);
   cout << "last occurance of " << n << " is at index: " << last << endl;
+  cout << "Total occurances of " << n << " is: " << last - first + 1 << endl;
   return 0;
 }
