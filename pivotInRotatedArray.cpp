@@ -23,22 +23,17 @@ void rotateArray(int arr[], int rot[], int i, int len) {
 }
 
 int findPivot(int rot[], int len) {
-  int pivot;
   int start = 0;
   int end = len - 1;
   int mid = start + (end - start) / 2;
-  while (start <= end) {
+  while (start < end) {
     if (rot[mid] > rot[0]) start = mid + 1;
 
     if (rot[mid] < rot[0]) end = mid;
 
-    if (rot[mid] < rot[mid - 1] && rot[mid] < rot[mid + 1]) {
-      pivot = rot[mid];
-      break;
-    }
     mid = start + (end - start) / 2;
   }
-  return pivot;
+  return rot[mid];
 }
 
 int main() {
