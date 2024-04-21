@@ -2,6 +2,14 @@
 using namespace std;
 
 int main() {
-  int n;
+  int n, req;
+  cin >> n >> req;
+  int arr[n];
+  for (int i = 0; i < n; i++) {
+    cin >> arr[i];
+  }
+  for (int i = 0; i < n; i++) {
+    cout << arr[i];
+  }
   return 0;
 }
