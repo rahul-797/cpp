@@ -44,6 +44,6 @@ int main() {
   int books = sizeof(arr) / sizeof(arr[0]);
   int students = 6;
   int min = allocateBooks(arr, books, students);
-  cout << min << endl;
+  cout << "Max pages a student will get is: " << min << endl;
   return 0;
 }
