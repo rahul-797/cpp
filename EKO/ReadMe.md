@@ -4,15 +4,18 @@ Mirko‟s machine works as follows: Mirko sets a height parameter H (in metres),
 
 Mirko is ecologically minded, so he doesn‟t want to cut off more wood than necessary. That‟s why he wants to set his sawblade as high as possible. Help Mirko find the maximum integer height of the sawblade that still allows him to cut off at least M metres of wood.
 
-Input
+**Input**
+
 The first line of input contains two space-separated positive integers, N (the number of trees, 1 ≤ N ≤ 1 000 000) and M (Mirko‟s required wood amount, 1 ≤ M ≤ 2 000 000 000).
 
 The second line of input contains N space-separated positive integers less than 1 000 000 000, the heights of each tree (in metres). The sum of all heights will exceed M, thus Mirko will always be able to obtain the required amount of wood.
 
-Output
+**Output**
+
 The first and only line of output must contain the required height setting.
 
-Example
+**Example**
+
 Input:
 4 7
 20 15 10 17
