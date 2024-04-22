@@ -4,14 +4,16 @@ using namespace std;
 
 void bubbleSort(int arr[], int len) {
   int swaps = len;
+  int j = 0;
   while (swaps) {
     swaps = 0;
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < len - j; i++) {
       if (arr[i] > arr[i + 1] && i < len - 1) {
         swap(arr[i], arr[i + 1]);
         swaps++;
       }
     }
+    j++;
   }
 }
 
