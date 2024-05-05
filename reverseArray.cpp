@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 using namespace std;
 
 int main() {
@@ -6,9 +7,7 @@ int main() {
   int len = sizeof(arr) / sizeof(arr[0]);
 
   for (int i = 0; i <= (len - 1) / 2; i++) {
-    int temp = arr[i];
-    arr[i] = arr[len - i - 1];
-    arr[len - i - 1] = temp;
+    swap(arr[i], arr[len - 1 - i]);
   }
 
   for (auto i : arr) {
