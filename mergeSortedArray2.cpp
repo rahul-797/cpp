@@ -34,7 +34,7 @@ int main() {
   for (auto i : arr1) {
     cout << i << " ";
   }
-  cout << endl;
+  cout << "\n";
 
   return 0;
 }
