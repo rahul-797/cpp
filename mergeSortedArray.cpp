@@ -11,6 +11,22 @@ int main() {
   int i = 0, j = 0, k = 0;
   int arr[len1 + len2];
 
+  while (j <= len1 - 1 && k <= len2 - 1) {
+    if (arr1[j] < arr2[k]) {
+      arr[i++] = arr1[j++];
+    } else {
+      arr[i++] = arr2[k++];
+    }
+  }
+
+  while (j <= len1 - 1) {
+    arr[i++] = arr1[j++];
+  }
+
+  while (k <= len2 - 1) {
+    arr[i++] = arr2[k++];
+  }
+
   for (auto i : arr) {
     cout << i << " ";
   }
