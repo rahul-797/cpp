@@ -14,13 +14,8 @@ int main() {
     k %= len;
   }
 
-  for (int i = 0; i < len - k; i++) {
-    arr2[i + k] = arr[i];
-  }
-
-  int index = 0;
-  for (int i = len - k; index < k; i++, index++) {
-    arr2[index] = arr[i];
+  for (int i = 0; i < len; i++) {
+    arr2[(i + k) % len] = arr[i];
   }
 
   for (auto i : arr2) {
