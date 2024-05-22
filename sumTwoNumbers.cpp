@@ -21,35 +21,23 @@ int main() {
   int carry = 0;
 
   while (j >= 0 && k >= 0) {
-    if (arr1[j] + arr2[k] + carry > 9) {
-      vec.push_back((arr1[j] + arr2[k] + carry) % 10);
-      carry = 1;
-    } else {
-      vec.push_back(arr1[j] + arr2[k] + carry);
-      carry = 0;
-    }
+    int sum = arr1[j] + arr2[k] + carry;
+    vec.push_back(sum % 10);
+    carry = sum / 10;
     j--, k--;
   }
 
   while (j >= 0) {
-    if (arr1[j] + carry > 9) {
-      vec.push_back((arr1[j] + carry) % 10);
-      carry = 1;
-    } else {
-      vec.push_back(arr1[j] + carry);
-      carry = 0;
-    }
+    int sum = arr1[j] + carry;
+    vec.push_back(sum % 10);
+    carry = sum / 10;
     j--;
   }
 
   while (k >= 0) {
-    if (arr2[k] + carry > 9) {
-      vec.push_back((arr2[k] + carry) % 10);
-      carry = 1;
-    } else {
-      vec.push_back(arr2[k] + carry);
-      carry = 0;
-    }
+    int sum = arr2[k] + carry;
+    vec.push_back(sum % 10);
+    carry = sum / 10;
     k--;
   }
 
