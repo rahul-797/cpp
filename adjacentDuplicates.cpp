@@ -2,19 +2,37 @@
 using namespace std;
 
 int main() {
-  string s = "aaaaaaaa";
-  bool change = true;
-
-  while (s.length() > 1 && change) {
-    change = false;
+  string s = "abccbada";
+  /*
+   * Using stack
+   *
+    stack<char> pile;
     for (int i = 0; i < s.length(); i++) {
-      cout << i << "  " << s.length() << endl;
-      if (s.length() > 1 && s[i] == s[i + 1]) {
-        s.erase(i, 2);
-        change = true;
+      if (pile.empty() || pile.top() != s[i]) {
+        pile.push(s[i]);
+      } else {
+        pile.pop();
       }
     }
+    string ss = "";
+    while (!pile.empty()) {
+      string ch = "";
+      ch += pile.top();
+      ss.insert(0, ch);
+      pile.pop();
+    }
+    cout << ss << endl;
+    */
+
+  // using string as stack!
+  string ss;
+  for (auto ch : s) {
+    if (ss.size() && ss.back() == ch)
+      ss.pop_back();
+    else
+      ss.push_back(ch);
   }
-  cout << s << endl;
+  cout << ss << endl;
+
   return 0;
 }
