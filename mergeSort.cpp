@@ -1,35 +1,28 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 void mergeArr(int *arr, int s, int e, int mid) {
-  int len1 = mid - s + 1;
-  int len2 = e - mid;
-  int *arr1 = new int[len1];
-  int *arr2 = new int[len2];
+  int left = s;
+  int right = mid + 1;
+  vector<int> vec;
 
-  int k = s;
-  for (int i = 0; i < len1; i++) {
-    arr1[i] = arr[k++];
+  while (left <= mid && right <= e) {
+    if (arr[left] <= arr[right]) {
+      vec.push_back(arr[left++]);
+    } else {
+      vec.push_back(arr[right++]);
+    }
   }
-  k = mid + 1;
-  for (int j = 0; j < len2; j++) {
-    arr2[j] = arr[k++];
+  while (left <= mid) {
+    vec.push_back(arr[left++]);
   }
-
-  int i = 0, j = 0;
-  int index = s;
-  while (i < len1 && j < len2) {
-    (arr1[i] < arr2[j]) ? arr[index++] = arr1[i++] : arr[index++] = arr2[j++];
+  while (right <= e) {
+    vec.push_back(arr[right++]);
   }
-  while (i < len1) {
-    arr[index++] = arr1[i++];
+  for (int i = s; i <= e; i++) {
+    arr[i] = vec[i - s];
   }
-  while (j < len2) {
-    arr[index++] = arr2[j++];
-  }
-
-  delete[] arr1;
-  delete[] arr2;
 }
 
 void mergeSort(int *arr, int s, int e) {
