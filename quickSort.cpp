@@ -5,22 +5,29 @@ using namespace std;
 
 int partitionVec(vector<int>& vec, int s, int e) {
   int count = 0;
+  // we calculate elements >= initial element, here = is important
+  // as we want our element at last and even all equal elements must be before
+  // it
+
   for (int i = s + 1; i <= e; i++) {
     if (vec[i] <= vec[s]) count++;
   }
-  swap(vec[s], vec[s + count]);
+  int pivotIndex = s + count;
+  swap(vec[s], vec[pivotIndex]);
 
   int first = s, last = e;
-  while (first < s + count && last > s + count) {
+  while (first < pivotIndex && last > pivotIndex) {
     if (vec[first] <= vec[s + count]) {
       first++;
     }
     if (vec[last] > vec[s + count]) {
       last--;
     }
-    if (first < s + count && last > s + count) swap(vec[first++], vec[last--]);
+    // put all <= elements before pivot
+    if (vec[first] > vec[pivotIndex] && vec[last] <= vec[pivotIndex])
+      swap(vec[first++], vec[last--]);
   }
-  return s + count;
+  return pivotIndex;
 }
 
 void quickSort(vector<int>& vec, int s, int e) {
