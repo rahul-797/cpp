@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 using namespace std;
 
@@ -42,6 +41,41 @@ void insertAtPos(Node*& tail, int val, int pos) {
   }
 }
 
+void deleteBegin(Node*& tail) {
+  Node* head = tail->next;
+  tail->next = head->next;
+  delete head;
+}
+
+void deleteEnd(Node*& tail) {
+  Node* temp = tail->next;
+  while (temp->next != tail) {
+    temp = temp->next;
+  }
+  Node* tailCopy = tail;
+  temp->next = tailCopy->next;
+  delete tailCopy;
+  tail = temp;
+}
+
+void deleteAtPos(Node*& tail, int pos) {
+  if (pos == 1) {
+    deleteBegin(tail);
+    return;
+  }
+  Node* temp = tail->next;
+  while ((pos--) - 2) {
+    temp = temp->next;
+  }
+  if (temp->next == tail) {
+    deleteEnd(tail);
+    return;
+  }
+  Node* node = temp->next;
+  temp->next = node->next;
+  delete node;
+}
+
 void print(Node*& tail) {
   Node* head = tail->next;
   Node* temp = head;
@@ -63,6 +97,14 @@ int main() {
 
   insertAtPos(tail, 6, 6);
   insertAtPos(tail, 0, 1);
+  print(tail);
+
+  deleteBegin(tail);
+  deleteEnd(tail);
+  print(tail);
+
+  deleteAtPos(tail, 1);
+  deleteAtPos(tail, 4);
   print(tail);
   return 0;
 }
