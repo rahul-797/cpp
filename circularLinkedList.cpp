@@ -25,7 +25,22 @@ void insertEnd(Node*& tail, int val) {
   tail = node;
 }
 
-void insertAtPos(Node*& tail, int val) {}
+void insertAtPos(Node*& tail, int val, int pos) {
+  Node* node = new Node(val);
+  if (pos == 1) {
+    insertBegin(tail, val);
+    return;
+  }
+  Node* temp = tail->next;
+  while ((pos--) - 2) {
+    temp = temp->next;
+  }
+  node->next = temp->next;
+  temp->next = node;
+  if (temp == tail) {
+    tail = node;
+  }
+}
 
 void print(Node*& tail) {
   Node* head = tail->next;
@@ -44,6 +59,10 @@ int main() {
   insertEnd(tail, 5);
   insertBegin(tail, 2);
   insertBegin(tail, 1);
+  print(tail);
+
+  insertAtPos(tail, 6, 6);
+  insertAtPos(tail, 0, 1);
   print(tail);
   return 0;
 }
