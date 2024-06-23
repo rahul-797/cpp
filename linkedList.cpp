@@ -96,6 +96,20 @@ void reverseLL(Node*& head) {
   temp->next = prev;
   head = temp;
 }
+void reverseLLRecursion(Node*& head, Node* prev, Node* temp, Node* next,
+                        bool firstCall = false) {
+  if (next == NULL) {
+    temp->next = prev;
+    head = temp;
+    return;
+  }
+  if (firstCall) prev->next = NULL;
+  temp->next = prev;
+  prev = temp;
+  temp = next;
+  next = next->next;
+  reverseLLRecursion(head, prev, temp, next);
+}
 
 int main() {
   Node* head = new Node(5);
@@ -119,6 +133,9 @@ int main() {
   print(head);
 
   reverseLL(head);
+  print(head);
+
+  reverseLLRecursion(head, head, head->next, head->next->next, true);
   print(head);
 
   return 0;
