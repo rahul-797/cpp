@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 using namespace std;
 
@@ -81,6 +82,21 @@ void print(Node*& head) {
   cout << endl;
 }
 
+void reverseLL(Node*& head) {
+  Node* prev = head;
+  Node* temp = head->next;
+  Node* next = temp->next;
+  prev->next = NULL;
+  while (next != NULL) {
+    temp->next = prev;
+    prev = temp;
+    temp = next;
+    next = next->next;
+  }
+  temp->next = prev;
+  head = temp;
+}
+
 int main() {
   Node* head = new Node(5);
   insertBegin(head, 4);
@@ -100,6 +116,9 @@ int main() {
   print(head);
 
   deleteAtPos(head, 1);
+  print(head);
+
+  reverseLL(head);
   print(head);
 
   return 0;
