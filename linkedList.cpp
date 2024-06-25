@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 using namespace std;
 
@@ -111,6 +110,26 @@ void reverseLLRecursion(Node*& head, Node* prev, Node* temp, Node* next,
   reverseLLRecursion(head, prev, temp, next);
 }
 
+void kReverse(Node*& head, int k) {
+  Node* ptr = head;
+  int j = k;
+  while ((j--)) {
+    ptr = ptr->next;
+  }
+  Node* prev = head;
+  if (prev->next == NULL) return;
+  Node* temp = prev->next;
+  Node* next = temp->next;
+  for (int i = k - 1; i > 0; i--) {
+    temp->next = prev;
+    prev = temp;
+    temp = next;
+    next = next->next;
+  }
+  head->next = ptr;
+  head = prev;
+}
+
 int main() {
   Node* head = new Node(5);
   insertBegin(head, 4);
@@ -138,5 +157,7 @@ int main() {
   reverseLLRecursion(head, head, head->next, head->next->next, true);
   print(head);
 
+  kReverse(head->next->next, 2);
+  print(head);
   return 0;
 }
