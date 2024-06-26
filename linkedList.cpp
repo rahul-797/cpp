@@ -118,7 +118,7 @@ Node* kReverse(Node*& start, int k, Node* head, bool fromStart = false) {
     ptr = ptr->next;
   }
   Node* prev = start;
-  if (prev->next == NULL) return head;
+  if (prev->next == NULL || k == 1) return head;
 
   Node* startBack = head;
   if (!fromStart) {
@@ -156,6 +156,10 @@ Node* kReverse(Node*& start, int k, Node* head, bool fromStart = false) {
 }
 
 void groupReverse(Node*& head, int k) {
+  if (k < 1) {
+    cout << "k cannot be less than 1" << endl;
+    return;
+  }
   int len = 0;
   Node* temp = head;
   while (temp != NULL) {
@@ -163,13 +167,12 @@ void groupReverse(Node*& head, int k) {
     len++;
   }
   if (k > len) {
-    cout << "Value of k is greater then length" << endl;
+    cout << "Value of k cannot be is greater then length" << endl;
     return;
   }
   temp = head;
   int count = 1;
   Node* start = head;
-  cout << endl;
   int i = len;
   for (; i >= k; i -= k, count++) {
     if (count == 1) {
@@ -178,7 +181,6 @@ void groupReverse(Node*& head, int k) {
     } else {
       head = kReverse(start, k, head, false);
     }
-    print(head);
     int j = k;
     while ((j--)) {
       start = start->next;
@@ -216,8 +218,8 @@ int main() {
   reverseLLRecursion(head, head, head->next, head->next->next, true);
   print(head);
 
-  groupReverse(head, 4);
   cout << endl;
+  groupReverse(head, 3);
   print(head);
   return 0;
 }
