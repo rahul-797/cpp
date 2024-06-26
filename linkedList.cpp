@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 using namespace std;
 
@@ -110,24 +111,73 @@ void reverseLLRecursion(Node*& head, Node* prev, Node* temp, Node* next,
   reverseLLRecursion(head, prev, temp, next);
 }
 
-void kReverse(Node*& head, int k) {
-  Node* ptr = head;
+Node* kReverse(Node*& start, int k, Node* head, bool fromStart = false) {
+  Node* ptr = start;
   int j = k;
   while ((j--)) {
     ptr = ptr->next;
   }
-  Node* prev = head;
-  if (prev->next == NULL) return;
+  Node* prev = start;
+  if (prev->next == NULL) return head;
+
+  Node* startBack = head;
+  if (!fromStart) {
+    while (startBack->next != start) {
+      startBack = startBack->next;
+    }
+  }
+
   Node* temp = prev->next;
+  // case of two elements
+  if (temp->next == NULL) {
+    temp->next = prev;
+    prev->next = NULL;
+    startBack->next = temp;
+    start = temp;
+    if (fromStart) return start;
+    return head;
+  }
   Node* next = temp->next;
   for (int i = k - 1; i > 0; i--) {
+    if (i == k - 1 && !fromStart) startBack->next = prev;
     temp->next = prev;
     prev = temp;
     temp = next;
+    if (next->next == NULL) {
+      continue;
+    }
     next = next->next;
   }
-  head->next = ptr;
-  head = prev;
+  start->next = ptr;
+  start = prev;
+  if (!fromStart) startBack->next = start;
+  if (fromStart) return start;
+  return head;
+}
+
+void groupReverse(Node*& head, int k) {
+  int len = 0;
+  Node* temp = head;
+  while (temp != NULL) {
+    temp = temp->next;
+    len++;
+  }
+  temp = head;
+  int count = 1;
+  Node* start = head;
+
+  for (int i = len; i >= k; i -= k, count++) {
+    if (count == 1) {
+      head = kReverse(head, k, head, true);
+      start = head;
+    } else {
+      head = kReverse(start, k, head, false);
+    }
+    int j = k;
+    while ((j--)) {
+      start = start->next;
+    }
+  }
 }
 
 int main() {
@@ -157,7 +207,8 @@ int main() {
   reverseLLRecursion(head, head, head->next, head->next->next, true);
   print(head);
 
-  kReverse(head->next->next, 2);
+  groupReverse(head, 3);
+  cout << endl;
   print(head);
   return 0;
 }
