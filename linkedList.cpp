@@ -162,21 +162,30 @@ void groupReverse(Node*& head, int k) {
     temp = temp->next;
     len++;
   }
+  if (k > len) {
+    cout << "Value of k is greater then length" << endl;
+    return;
+  }
   temp = head;
   int count = 1;
   Node* start = head;
-
-  for (int i = len; i >= k; i -= k, count++) {
+  cout << endl;
+  int i = len;
+  for (; i >= k; i -= k, count++) {
     if (count == 1) {
       head = kReverse(head, k, head, true);
       start = head;
     } else {
       head = kReverse(start, k, head, false);
     }
+    print(head);
     int j = k;
     while ((j--)) {
       start = start->next;
     }
+  }
+  if (len % k != 0) {
+    head = kReverse(start, i, head, false);
   }
 }
 
@@ -207,7 +216,7 @@ int main() {
   reverseLLRecursion(head, head, head->next, head->next->next, true);
   print(head);
 
-  groupReverse(head, 3);
+  groupReverse(head, 4);
   cout << endl;
   print(head);
   return 0;
