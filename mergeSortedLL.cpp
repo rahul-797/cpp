@@ -32,6 +32,7 @@ void print(Node*& head) {
 }
 
 Node* mergeLL(Node*& head1, Node*& head2) {
+  bool hasNegative = false;
   Node* newHead = NULL;
   Node* node1 = head1;
   Node* node2 = head2;
@@ -50,6 +51,16 @@ Node* mergeLL(Node*& head1, Node*& head2) {
   }
   last = newHead;
   while (node1 != NULL && node2 != NULL) {
+    if (node1->data == -1) {
+      hasNegative = true;
+      leftOut = node2;
+      break;
+    }
+    if (node2->data == -1) {
+      hasNegative = true;
+      leftOut = node1;
+      break;
+    }
     if (node1->data <= node2->data) {
       last->next = node1;
       last = node1;
@@ -65,25 +76,31 @@ Node* mergeLL(Node*& head1, Node*& head2) {
       if (next2 != NULL) next2 = next2->next;
     }
   }
-  last->next = leftOut;
+  Node* temp = leftOut;
+  while (temp->data != -1) {
+    last->next = temp;
+    last = temp;
+    temp = temp->next;
+  }
+  Node* neg = new Node(-1);
+  if (hasNegative) {
+    last->next = neg;
+    return newHead;
+  }
+  last->next = NULL;
   return newHead;
 }
 
 int main() {
-  Node* head = new Node(2);
-  insertEnd(head, 3);
-  insertEnd(head, 5);
-  insertEnd(head, 6);
-  insertEnd(head, 9);
+  Node* head = new Node(5);
+  insertEnd(head, -1);
   print(head);
 
   Node* head2 = new Node(1);
-  insertEnd(head2, 2);
-  insertEnd(head2, 2);
-  insertEnd(head2, 4);
+  insertEnd(head2, 3);
   insertEnd(head2, 6);
-  insertEnd(head2, 8);
-  insertEnd(head2, 9);
+  insertEnd(head2, 10);
+  insertEnd(head2, -1);
   print(head2);
 
   Node* newHead = mergeLL(head, head2);
