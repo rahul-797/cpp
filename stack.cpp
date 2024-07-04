@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
@@ -47,24 +48,36 @@ class Stack {
   }
 };
 
+void popMiddle(Stack*& s, int count, int top) {
+  if (count == top / 2) {
+    s->pop();
+    return;
+  }
+  int val = s->peek();
+  s->pop();
+
+  popMiddle(s, count + 1, top);
+
+  s->push(val);
+}
+
 int main() {
-  Stack* s = new Stack(4);
+  Stack* s = new Stack(8);
   s->push(1);
+  s->push(2);
+  s->pop();
   s->push(2);
   s->push(3);
   s->push(4);
-  s->print();
+  s->push(5);
+  s->push(6);
+  s->push(7);
+  s->push(8);
 
-  s->pop();
-  s->pop();
-  s->pop();
-  s->pop();
   s->print();
-
-  s->push(1);
-  s->push(2);
-  s->push(3);
-  s->push(4);
-  cout << s->peek() << endl;
+  int count = 0;
+  popMiddle(s, count, s->top);
+  cout << "After popping middle: " << endl;
+  s->print();
   return 0;
 }
