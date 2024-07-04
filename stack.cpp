@@ -32,6 +32,11 @@ class Stack {
     top -= 1;
   }
 
+  bool isEmpty() {
+    if (top == -1) return true;
+    return false;
+  }
+
   int peek() {
     if (top == -1) {
       cout << "Stack is empty" << endl;
@@ -51,14 +56,36 @@ class Stack {
 void popMiddle(Stack*& s, int count, int top) {
   if (count == top / 2) {
     s->pop();
+    s->top--;
     return;
   }
   int val = s->peek();
   s->pop();
-
   popMiddle(s, count + 1, top);
-
   s->push(val);
+}
+
+void insertBottom(Stack*& s, int value) {
+  if (s->size - s->top <= 1) {
+    cout << "Stack overflow" << endl;
+    return;
+  }
+  if (s->isEmpty()) {
+    s->push(value);
+    return;
+  }
+  int topValue = s->peek();
+  s->pop();
+  insertBottom(s, value);
+  s->push(topValue);
+}
+
+void reverseStack(Stack*& s) {
+  if (s->isEmpty()) return;
+  int topValue = s->peek();
+  s->pop();
+  reverseStack(s);
+  insertBottom(s, topValue);
 }
 
 int main() {
@@ -78,6 +105,14 @@ int main() {
   int count = 0;
   popMiddle(s, count, s->top);
   cout << "After popping middle: " << endl;
+  s->print();
+
+  cout << "Inserting at bottom: " << endl;
+  insertBottom(s, 9);
+  s->print();
+
+  cout << "Reverse: " << endl;
+  reverseStack(s);
   s->print();
   return 0;
 }
