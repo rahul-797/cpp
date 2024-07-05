@@ -39,7 +39,6 @@ class Stack {
 
   int peek() {
     if (top == -1) {
-      cout << "Stack is empty" << endl;
       return -1;
     }
     return arr[top];
@@ -56,7 +55,6 @@ class Stack {
 void popMiddle(Stack*& s, int count, int top) {
   if (count == top / 2) {
     s->pop();
-    s->top--;
     return;
   }
   int val = s->peek();
@@ -88,6 +86,25 @@ void reverseStack(Stack*& s) {
   insertBottom(s, topValue);
 }
 
+void sortedInsert(Stack*& s, int value) {
+  int topValue = s->peek();
+  if (s->isEmpty() || value >= topValue) {
+    s->push(value);
+    return;
+  }
+  s->pop();
+  sortedInsert(s, value);
+  s->push(topValue);
+}
+
+void sortStack(Stack*& s) {
+  if (s->isEmpty()) return;
+  int topValue = s->peek();
+  s->pop();
+  sortStack(s);
+  sortedInsert(s, topValue);
+}
+
 int main() {
   Stack* s = new Stack(8);
   s->push(1);
@@ -113,6 +130,10 @@ int main() {
 
   cout << "Reverse: " << endl;
   reverseStack(s);
+  s->print();
+
+  cout << "Sorted: " << endl;
+  sortStack(s);
   s->print();
   return 0;
 }
