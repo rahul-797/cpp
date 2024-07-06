@@ -12,16 +12,20 @@ void print(stack<char>& s) {
 }
 
 void hasRedundantBracket(stack<char>& s) {
-  cout << s.top() << endl;
   if (s.empty()) {
     cout << "No redundant brackets" << endl;
     return;
   }
   char removed = s.top();
   s.pop();
+  if (s.empty()) {
+    cout << "No redundant brackets" << endl;
+    return;
+  }
   char top = s.top();
   if (top == removed && top == ')') {
     cout << "Has redundant brackets" << endl;
+    return;
   }
   hasRedundantBracket(s);
   s.push(top);
@@ -30,7 +34,9 @@ void hasRedundantBracket(stack<char>& s) {
 int main() {
   stack<char> s;
   s.push('(');
+  s.push('(');
   s.push('a');
+  s.push(')');
   s.push(')');
 
   print(s);
