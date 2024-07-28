@@ -76,6 +76,37 @@ void print(Node* node) {
   // on top: preorder, middle: inorder, last: postorder
 }
 
+int depth(Node* node) {
+  if (node == NULL) {
+    return 0;
+  } else {
+    int lDepth = depth(node->left);
+    int rDepth = depth(node->right);
+    if (lDepth > rDepth) {
+      return lDepth + 1;
+    } else {
+      return rDepth + 1;
+    }
+  }
+}
+
+void printCurrentLevel(Node* node, int depth) {
+  if (node == NULL) {
+    return;
+  }
+  if (depth == 1) cout << node->data << " ";
+  if (depth > 1) {
+    printCurrentLevel(node->left, depth - 1);
+    printCurrentLevel(node->right, depth - 1);
+  }
+}
+
+void bfsTraversal(Node* node, int depth) {
+  for (int i = 1; i <= depth; i++) {
+    printCurrentLevel(node, i);
+  }
+}
+
 int main() {
   Node* root = new Node(8);
   root->left = new Node(3);
@@ -96,5 +127,7 @@ int main() {
   deleteNode(root, 10);
   print(root);
   cout << endl;
+  cout << "Depth: " << depth(root) << endl;
+  bfsTraversal(root, depth(root));
   return 0;
 }
