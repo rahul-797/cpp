@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 
 class Node {
@@ -144,6 +145,31 @@ void spiralBFS(Node* node) {
   for (int i = 1; i <= height; i++, order = !order) {
     printCurrLevel(node, i, order);
   }
+  cout << endl;
+}
+//////////////////////////////////////////////////////////
+void spiralBFSStack(Node* node) {
+  if (node == NULL) return;
+  stack<Node*> s1;
+  stack<Node*> s2;
+  s1.push(node);
+
+  while (!s1.empty() || !s2.empty()) {
+    while (!s1.empty()) {
+      Node* temp = s1.top();
+      cout << temp->data << " ";
+      s1.pop();
+      if (temp->left) s2.push(temp->left);
+      if (temp->right) s2.push(temp->right);
+    }
+    while (!s2.empty()) {
+      Node* temp = s2.top();
+      cout << temp->data << " ";
+      s2.pop();
+      if (temp->left) s1.push(temp->right);
+      if (temp->right) s1.push(temp->left);
+    }
+  }
 }
 //////////////////////////////////////////////////////////
 
@@ -171,7 +197,7 @@ int main() {
   bfsTraversal(root, depth(root));
   cout << endl;
   bfsUsingQueue(root);
-
   spiralBFS(root);
+  spiralBFSStack(root);
   return 0;
 }
