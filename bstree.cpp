@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 class Node {
@@ -107,6 +108,19 @@ void bfsTraversal(Node* node, int depth) {
   }
 }
 
+void bfsUsingQueue(Node* node) {
+  if (node == NULL) return;
+  queue<Node*> q;
+  q.push(node);
+  while (!q.empty()) {
+    cout << q.front()->data << " ";
+    if (q.front()->left != NULL) q.push(q.front()->left);
+    if (q.front()->right != NULL) q.push(q.front()->right);
+    q.pop();
+  }
+  cout << endl;
+}
+
 int main() {
   Node* root = new Node(8);
   root->left = new Node(3);
@@ -129,5 +143,7 @@ int main() {
   cout << endl;
   cout << "Depth: " << depth(root) << endl;
   bfsTraversal(root, depth(root));
+  cout << endl;
+  bfsUsingQueue(root);
   return 0;
 }
