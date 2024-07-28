@@ -77,6 +77,7 @@ void print(Node* node) {
   // on top: preorder, middle: inorder, last: postorder
 }
 
+//////////////////////////////////////////////////////////
 int depth(Node* node) {
   if (node == NULL) {
     return 0;
@@ -108,6 +109,7 @@ void bfsTraversal(Node* node, int depth) {
   }
 }
 
+//////////////////////////////////////////////////////////
 void bfsUsingQueue(Node* node) {
   if (node == NULL) return;
   queue<Node*> q;
@@ -120,6 +122,30 @@ void bfsUsingQueue(Node* node) {
   }
   cout << endl;
 }
+
+//////////////////////////////////////////////////////////
+void printCurrLevel(Node* node, int height, bool order) {
+  if (node == NULL) return;
+  if (height == 1) cout << node->data << " ";
+  if (height > 1) {
+    if (order) {
+      printCurrLevel(node->left, height - 1, order);
+      printCurrLevel(node->right, height - 1, order);
+    } else {
+      printCurrLevel(node->right, height - 1, order);
+      printCurrLevel(node->left, height - 1, order);
+    }
+  }
+}
+
+void spiralBFS(Node* node) {
+  bool order = true;
+  int height = depth(node);
+  for (int i = 1; i <= height; i++, order = !order) {
+    printCurrLevel(node, i, order);
+  }
+}
+//////////////////////////////////////////////////////////
 
 int main() {
   Node* root = new Node(8);
@@ -145,5 +171,7 @@ int main() {
   bfsTraversal(root, depth(root));
   cout << endl;
   bfsUsingQueue(root);
+
+  spiralBFS(root);
   return 0;
 }
