@@ -103,7 +103,7 @@ void printCurrentLevel(Node* node, int depth) {
     printCurrentLevel(node->right, depth - 1);
   }
 }
-
+// for reverse traversal, just start from end and decrement
 void bfsTraversal(Node* node, int depth) {
   for (int i = 1; i <= depth; i++) {
     printCurrentLevel(node, i);
@@ -166,31 +166,44 @@ void spiralBFSStack(Node* node) {
       Node* temp = s2.top();
       cout << temp->data << " ";
       s2.pop();
-      if (temp->left) s1.push(temp->right);
-      if (temp->right) s1.push(temp->left);
+      if (temp->left) s1.push(temp->left);
+      if (temp->right) s1.push(temp->right);
     }
   }
+  cout << endl;
 }
 //////////////////////////////////////////////////////////
-
+void reverseBFS(Node* node) {
+  stack<Node*> s;
+  queue<Node*> q;
+  q.push(node);
+  while (!q.empty()) {
+    Node* curr = q.front();
+    q.pop();
+    s.push(curr);
+    if (curr->right) {
+      q.push(curr->right);
+    }
+    if (curr->left) {
+      q.push(curr->left);
+    }
+  }
+  while (!s.empty()) {
+    cout << s.top()->data << " ";
+    s.pop();
+  }
+  cout << endl;
+}
+//////////////////////////////////////////////////////////
 int main() {
   Node* root = new Node(8);
-  root->left = new Node(3);
-  root->left->left = new Node(1);
-  root->left->right = new Node(6);
-  root->left->right->left = new Node(4);
-  root->left->right->right = new Node(7);
-  root->right = new Node(10);
-  root->right->right = new Node(14);
-  root->right->right->left = new Node(13);
-  print(root);
-  cout << endl;
+  insert(root, 1);
+  insert(root, 3);
+  insert(root, 6);
+  insert(root, 9);
+  insert(root, 4);
   insert(root, 2);
-  insert(root, 20);
-  insert(root, 15);
-  print(root);
-  cout << endl;
-  deleteNode(root, 10);
+  insert(root, 7);
   print(root);
   cout << endl;
   cout << "Depth: " << depth(root) << endl;
@@ -199,5 +212,10 @@ int main() {
   bfsUsingQueue(root);
   spiralBFS(root);
   spiralBFSStack(root);
+
+  print(root);
+  cout << endl;
+
+  reverseBFS(root);
   return 0;
 }
