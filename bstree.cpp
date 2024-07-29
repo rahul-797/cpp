@@ -1,6 +1,8 @@
+#include <algorithm>
 #include <iostream>
 #include <queue>
 #include <stack>
+#include <string>
 using namespace std;
 
 class Node {
@@ -195,6 +197,17 @@ void reverseBFS(Node* node) {
   cout << endl;
 }
 //////////////////////////////////////////////////////////
+int depthFromPreorder(string s, int n, int index) {
+  if (index >= n || s[index] == 'l') {
+    return 0;
+  }
+  index++;
+  int left = depthFromPreorder(s, n, index);
+  index++;
+  int right = depthFromPreorder(s, n, index);
+  return max(left, right) + 1;
+}
+//////////////////////////////////////////////////////////
 int main() {
   Node* root = new Node(8);
   insert(root, 1);
@@ -217,5 +230,8 @@ int main() {
   cout << endl;
 
   reverseBFS(root);
+
+  string s = "nlnnlll";
+  cout << "Depth: " << depthFromPreorder(s, s.length(), 0) << endl;
   return 0;
 }
