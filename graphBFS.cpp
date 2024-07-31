@@ -36,14 +36,6 @@ bool addVisited(vector<int>& visited, int val) {
   }
 }
 
-void print_queue(deque<int> q) {
-  while (!q.empty()) {
-    cout << q.front() << " ";
-    q.pop_front();
-  }
-  cout << endl;
-}
-
 void traverseGraph(vector<int> adj[], deque<int>& q, vector<int>& visited) {
   if (q.empty()) return;
   int front = q.front();
