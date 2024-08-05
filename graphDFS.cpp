@@ -2,6 +2,7 @@
 #include <deque>
 #include <iostream>
 #include <ostream>
+#include <stack>
 #include <vector>
 using namespace std;
 
@@ -48,6 +49,26 @@ void graphDFS(vector<int> adj[], int pos, vector<int>& visited) {
   }
 }
 
+void graphDFSIterative(vector<int> adj[], int pos, vector<int>& visited) {
+  visited.clear();
+  stack<int> s;
+  s.push(pos);
+  while (!s.empty()) {
+    int top = s.top();
+    s.pop();
+    if (find(visited.begin(), visited.end(), top) == visited.end()) {
+      cout << top << " ";
+      visited.push_back(top);
+    }
+    vector<int>::iterator i;
+    for (i = adj[top].begin(); i != adj[top].end(); i++) {
+      if (find(visited.begin(), visited.end(), *i) == visited.end()) {
+        s.push(*i);
+      }
+    }
+  }
+}
+
 int main() {
   vector<int> adj[6];
   addEdge(adj, 0, 1);
@@ -59,6 +80,8 @@ int main() {
   vector<int> visited;
   uniToBiDirectional(adj);
   graphDFS(adj, 0, visited);
+  cout << endl;
+  graphDFSIterative(adj, 0, visited);
 
   return 0;
 }
