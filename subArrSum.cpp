@@ -18,6 +18,7 @@ int main() {
       if (arr[counter] == 0) {
         q.push(arr[counter]);
         counter++;
+        if (q.size() > max) max = q.size();
         continue;
       }
       currSum -= q.front();
@@ -33,6 +34,12 @@ int main() {
       q.pop();
     }
   }
+
+  while (!q.empty()) {
+    cout << q.front() << " ";
+    q.pop();
+  }
+  cout << endl;
 
   cout << "Max subarray length: " << max << endl;
 
