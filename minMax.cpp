@@ -35,6 +35,7 @@ int main() {
 
   cout << "Min: " << min << endl
        << "Max: " << max << endl
-       << "Comparisons: " << comparisons << endl;
+       << "Comparisons: " << comparisons << endl
+       << "Comarisons made are 3N/2 - 2" << endl;
   return 0;
 }
