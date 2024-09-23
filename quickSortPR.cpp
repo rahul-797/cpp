@@ -6,9 +6,13 @@ int part(int* arr, int start, int end) {
   int s = start, e = end;
   int pivot = arr[start];
   while (s < e) {
+    // Find the first element greater than
+    // the pivot (from starting)
     while (arr[s] <= pivot && s <= end - 1) {
       s++;
     }
+    // Find the first element smaller than
+    // the pivot (from last)
     while (arr[e] > pivot && e >= start + 1) {
       e--;
     }

@@ -31,7 +31,6 @@ int partitionVec(vector<int>& vec, int s, int e) {
 }
 
 void quickSort(vector<int>& vec, int s, int e) {
-  int mid = s + (e - s) / 2;
   if (s >= e) return;
   int i = partitionVec(vec, s, e);
   quickSort(vec, s, i - 1);
