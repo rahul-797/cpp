@@ -9,7 +9,11 @@ int* arr = (int*)calloc(10, sizeof(int));
 int* count = (int*)calloc(10, sizeof(int));
 
 int root(int a) {
-  while (arr[a] != a) a = arr[a];
+  while (arr[a] != a) {
+    arr[a] =
+        arr[arr[a]];  // point each node to grandparent ie shorten path to root
+    a = arr[a];
+  }
   return a;
 }
 
@@ -17,6 +21,8 @@ void connect(int a, int b) {
   int r1 = root(a);
   int r2 = root(b);
   if (r1 == r2) return;
+  // add smaller tree to bigger tree to make it balanced
+  // now find takes atmost logn time
   if (count[r1] < count[r2]) {
     arr[r2] = r1;
     count[r2] += count[r1];
